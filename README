@@ -1,0 +1,213 @@
+=========================
+CSCI 4229/5229, Fall 2011
+=========================
+Birdsong Final Project  (a.k.a. "Renny in 'Funderland'") 
+[SUBMITTED on 2011/12/07]
+=========================================================================
+submitted by:  Michael Birdsong (CU Staff member, auditing the course)
+
+
+Introduction
+=-=-=-=-=-=-=
+Since my preliminary "Show and Tell" on 2011/12/01, I've corrected a couple of
+glaring issues/bugs, and made some nice improvements.  This submitted project
+contains about 95% of everything I had hoped to accomplish in it. (Some Stretch
+Goals always go uncompleted).  I know how you feel about 'game' / 'maze' pro-
+jects, but I feel I've made this one intersting enough with the 3D objects
+and functionality in it.
+I created it all myself, building on basic utility functionality provided in 
+class, starting with glBegin(), glVertex3f(), glNormal(), glScaled(),
+glTranslated(), glRotated(), and glEnd() functions in 'C' code I generated for
+projects in this course.
+
+
+Keyboard controls:
+=-=-=-=-=-=-=-=-=-
+Hide/Show View Help: X
+Rotate right: l or 6(*)
+Rotate left: h or 4(*)
+Rotate up: k or 8(*)
+Rotate down: j or 2(*)
+Zoom in: i or 3(*)
+Zoom out: o or 9(*)
+(*) If you have a Number Pad on the right of your keyboard set 'Num Lock' 
+    and use it.
+Increase View Angle: +
+Decrease View Angle: -
+Terrain grid on/off: g/G
+Exit: ESC
+
+Show/Hide Move Help: x
+Wave: w
+Back flip: y
+Spotlight on/off: q
+Turn Left: left arrow
+Turn right: right arrow
+Start/Faster: Up arrow
+Slower/Stop: Down Arrow
+Pause Walk: p
+Resume Walk: f
+Reset to origin: 0
+Reset in place: r
+Takeoff/Ascend: u(**)
+Descend/Land: d(**)
+(**) Must have more than 2.0 sec. of Fly Time.
+Exit: ESC
+
+(more information / explanation)
+--------------------------------
+NOTE: controls have (in a way) moved around based upon the application itself.
+a.k.a. The main goal is to move Renny (not the users view) around the environ-
+ment.
+
+Major Change:
+-------------
+Left/Right Arrow Keys:  turn Renny left and right
+Up/Down Arrow Keys: start/speedup Renny and slowdown/stop Renny
+(He increases to a max speed of '25' and slows down to '10'.  He starts at
+speed '10' and will stop if slowed from speed '10')
+
+Move of world view keys to 'similar locations':
+-----------------------------------------------
+If you have an 'extra numeric keypad' to the left on your keyboard, and set
+the "Num Lock", the new 'rotate the world' keys seem just like the 'arrow
+key' version. a.k.a."
+'4'/'6': Rotates your view, CENTERED ON RENNY, left and right
+'8'/'2': Rotates your view, CENTERED ON RENNY, up and down
+'9'/'3': Zooms your view of the world out and in.
+(so it all seems like the 'cursor' and 'page' keys on that number pad)
+
+Move of world view keys to 'vi editor locations':
+-------------------------------------------------
+IF a user does not have that extra number pad, the above key controls,
+the numbers woudl be a pain, so we also have the old 'vi' cursor version
+working: 
+'h'/'l': Rotates your view, CENTERED ON RENNY, left and right
+'k'/'j': Rotates your view, CENTERED ON RENNY, up and down
+'o'/'i': Zooms your view of the world out and in.
+
+Other Renny Controls:
+---------------------
+'0': will reset Renny to the origin and your view of him to the original
+view point.  He will be stopped and 'bored'.
+'w': Will make Renny stop and wave at you, no matter where from where you
+are viewing him (up to him rotating to a 45 degree pitch)
+'y': Will make Renny do a backflip.
+'p': Will IMMEDIATELY STOP Renny from any speed (remembering that value)
+'f': Will IMMEDIATELY START Renny from stop and return him to the speed
+at which he was previously moving. 
+
+Other Environment Control:
+--------------------------
+'g'/'G': toggle the view of grid on the overall terrain
+--------------------------------
+
+
+New Cool things:
+=-=-=-=-=-=-=-=
+"Renny" (short for "Renderman Walking Teapot") now has many new 'skills' and
+a challenging environment to explore, and with which to interact.
+
+* Along with the previous ability to walk, start/stop (now both gradually and 
+immediately), turn left/right, rock on his feet, bored, while stopped;  he can
+now wave at the user on command (no matter from where the user is viewing him)
+both while walking (he pauses to do it) or while standing still, back flip on 
+command (walking or paused, much like waving), and now "crashes" after collid-
+ing with another object in the environment.  He can aslo fly with a balloon,
+if he has sufficient 'fly time'. (He gets more by colliding with flying martini
+glasses while doing back flips.)
+
+Renny FLYING
+------------
+Take offs and landings:  he moves very smoothly through both of these processes
+and has some fun animation in each.  (My wife Patricia gave me some great ideas
+for the whoel flying process)
+
+Running out of 'fly time':  He gracefully 'exits' from the ability to fly when
+he runs out of time.
+
+His hand and balloon:  I think his animations with the balloon, his hand, feet,
+and wind-up key would make the game player take notice.
+------------
+
+* The environment is MUCH expanded and more interesting.  The overall 'field' 
+is now a 2750 by 2750 "Renny Unit" area with a 'blue sky backdrop' and terrain 
+which consists of 30 'mountains' (which are 3D Gaussian Distributions) of 
+random height, shape, and location, unique to every run of the project.
+
+* Renny out walking on and exploring the uneven terrain in the correct ori-
+entation with objects also properly oriented and positioned out on the terrain.
+
+* The terrain background color and blended texture are a function of the ele-
+vations of the vertices in the terrain.
+
+Other terrain/environment items
+-------------------------------
+Renny's orientation on the terrain:  He moves smoothly over the terrain based
+on interpolations of the four closest vertex normals.  These normals are 
+perpendicular to the overall randomly generated surface at the point of each
+vertex.  All of these calculations are down IN THIS PROJECT BY CODE WRITTEN
+BY THIS AUTHOR. (In contrast, the 'evil teapots' "jerk" from square area to 
+area in to save computations.  The flying martini glass orientation changes
+are hardly noticed as they are spining about so madly.)
+Proper elevation interpolation and initial creation of area triangle planes 
+is now also done.
+-------------------------------
+
+* Added one more type of object to environment, pine trees at high elevation.
+
+* Added at least the "simple shadows" (Z-buffer blended as I could never quite 
+get the 'stencil version' to work) to Renny and the flying martini glasses and
+project them semi-reliably on the uneven terrain.
+
+* Added strategy and scoring to the game.  If he collides with an 'emissive'
+cent' object, he scores points.  If he collides with a 'solid' object he loses
+(fewer) points.  He is continually using energy, so he must find 'the glowing
+floating spinning sugar cubes of happiness', and collide with them to get more
+energy.  The 'cubes' blow apart after Renny collects the energy from them.
+Having Renny be friendly often with improve the players abilities in that local
+area.  The type and location of all the objects in the environment are also 
+randomly generated and the begining of each game, and (bascially) unique TO 
+that instance of the game.
+
+* The level of fog and light vary as he moves around the field.  He is equipped
+with a 'flashlight'  (shining from his spout) to find his way in the dark area 
+which has an unseen location until Renny walks/flies in to it (very 'black 
+hole event horizon').
+
+* Improved my primitive 'sky background' functionality to the point that I did 
+not implement the 'sky box' presented on 2011/11/04 in the lecture I missed.
+
+* If Renny manages to do a backlfip and 'hit' a flying martini glass he is able
+to 'fly' himself for an additional 42 seconds.
+
+* With a real 'simple game' level of functionality working, I'd now like to 
+compile it in different OS versions to distribute to the class to get some real
+feedback from them (Currently Mac OS X 10.6 is tested).
+
+* Improved logic for rendering the scene such that only terrain visible to the
+users will be drawn and only objects within Renny's 'local region of concern', 
+and also in his field of view, will actually be drawn.
+
+
+Conclusion:
+=-=-=-=-=-=
+There are ALWAYS things to be done:  different and more complex objects in the
+environment, more advanced shaders for different surfaces and environmental
+conditions, better and more shadows and placement of those shadows.
+
+That said, I feel I've created the project/game I envisioned back in late
+August.  I look forward to taking your next course in Spring 2012!
+
+Again, thank you Vlakkies and Mike for letting me 'tag along' in this course.
+I plan to (again*) apply for grad school here at CU early in 2012 for the Fall
+2012 semester.
+
+(*)  I worked toward a PhD in Aerospace Engineering Life Sciences here at CU
+form 1991 to early 1995, but left without completing the degree.
+
+
+Total Time Spent Specifically on the Project:
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-
+Including this write-up, I spent about least about 150 hours on the Project.  
+(It might be closer 160 hours, 'one programmer month'.)
